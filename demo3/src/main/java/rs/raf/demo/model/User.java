@@ -8,37 +8,85 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column
-    @NotBlank(message = "Username is mandatory")
-    private String username;
+    @Column(name="email")
+    @NotNull
+    private String email;
 
-    @Column
-    @NotBlank(message = "Password is mandatory")
+    @Column(name="firstName")
+    @NotNull
+    private String firstName;
+
+    @Column(name="lastName")
+    @NotNull
+    private String lastName;
+
+    @Column(name="password")
+    @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private Integer loginCount = 0;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name = "users_permissions",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<Permission> permissions = new HashSet<>();
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private Integer balance = 0;
+    public Long getUserId() {
+        return userId;
+    }
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private Integer salary = 0;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-//    @Column
-//    @Version
-//    private Integer version;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
 }
