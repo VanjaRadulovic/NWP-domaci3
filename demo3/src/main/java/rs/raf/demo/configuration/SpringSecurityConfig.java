@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import rs.raf.demo.filters.JwtFilter;
-import rs.raf.demo.services.UserDeatailService;
 import rs.raf.demo.services.UserService;
 
 @EnableWebSecurity
@@ -47,10 +46,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/api/users/add/**").hasAuthority("can_create_users")
-                .antMatchers("/api/users/get/**").hasAuthority("can_read_users")
-                .antMatchers("/api/users/update/**").hasAuthority("can_update_users")
-                .antMatchers("/api/users/delete/**").hasAuthority("can_delete_users")
+                .antMatchers("/api/users/**").permitAll()
+//                .antMatchers("/api/users/new/**").hasAuthority("can_create_users")
+//                .antMatchers("/api/users/get/**").hasAuthority("can_read_users")
+//                .antMatchers("/api/users/update/**").hasAuthority("can_update_users")
+//                .antMatchers("/api/users/del/**").hasAuthority("can_delete_users")
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

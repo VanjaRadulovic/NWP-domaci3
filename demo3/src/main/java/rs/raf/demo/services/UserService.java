@@ -41,6 +41,8 @@ public class UserService implements UserDetailsService {
     }
 
 
+
+
     public List<User> findAll() {
         return this.userRepository.findAll();
     }
@@ -58,4 +60,7 @@ public class UserService implements UserDetailsService {
     }
 
 
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
 }
