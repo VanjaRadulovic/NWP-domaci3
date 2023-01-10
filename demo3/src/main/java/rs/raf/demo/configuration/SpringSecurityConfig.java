@@ -23,11 +23,11 @@ import rs.raf.demo.services.UserService;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private final UserDeatailService userService;
+    private final UserService userService;
     private final JwtFilter jwtFilter;
 
     @Autowired
-    public SpringSecurityConfig(UserDeatailService userService, JwtFilter jwtFilter) {
+    public SpringSecurityConfig(UserService userService, JwtFilter jwtFilter) {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
     }
