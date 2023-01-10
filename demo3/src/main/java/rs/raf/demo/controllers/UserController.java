@@ -46,13 +46,14 @@ public class UserController {
         user.setFirstName(createUser.getFirstName());
         user.setLastName(createUser.getLastName());
         user.setPassword(password);
+        user.setPermissions(createUser.getPermissions());
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
     @GetMapping(value = "/del/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
-        Optional<User> user = Optional.ofNullable(userService.findbyID(id));
-        if(user.isPresent())
+        User user = (userService.findbyID(id));
+        if(user!=null)
         {
             userService.delete(id);
             return ResponseEntity.noContent().build();
@@ -62,27 +63,27 @@ public class UserController {
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getbyID(@PathVariable("id") Long id){
-        Optional<User> user = Optional.ofNullable(userService.findbyID(id));
-        if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+        User user = (userService.findbyID(id));
+        if(user!=null) {
+            return ResponseEntity.ok(user);
         }
         else return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updatebyID(@PathVariable("id")Long id, @RequestBody UpdateUserRequest updateUser){
-        Optional<User> user = Optional.ofNullable(userService.findbyID(id));
-        if(user.isPresent()){
-            User usr = user.get();
-
+        User user= (userService.findbyID(id));
+        if(user!=null){
             if(updateUser.getEmail()!=null)
-                usr.setEmail(updateUser.getEmail());
+                user.setEmail(updateUser.getEmail());
             if(updateUser.getFirstName()!=null)
-                usr.setEmail(updateUser.getFirstName());
+                user.setEmail(updateUser.getFirstName());
             if(updateUser.getLastName()!=null)
-                usr.setEmail(updateUser.getLastName());
+                user.setEmail(updateUser.getLastName());
+            if(updateUser.getPermissions()!=null)
+                user.setPermissions(updateUser.getPermissions());
 
-            return new ResponseEntity<>(userService.save(usr), HttpStatus.OK);
+            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
         }
         else return ResponseEntity.notFound().build();
     }

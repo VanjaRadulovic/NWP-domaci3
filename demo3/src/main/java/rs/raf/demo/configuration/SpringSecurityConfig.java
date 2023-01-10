@@ -16,16 +16,18 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import rs.raf.demo.filters.JwtFilter;
+import rs.raf.demo.services.UserDeatailService;
 import rs.raf.demo.services.UserService;
 
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+
+    private final UserDeatailService userService;
     private final JwtFilter jwtFilter;
 
     @Autowired
-    public SpringSecurityConfig(UserService userService, JwtFilter jwtFilter) {
+    public SpringSecurityConfig(UserDeatailService userService, JwtFilter jwtFilter) {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
     }
