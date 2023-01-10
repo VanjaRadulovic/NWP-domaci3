@@ -50,10 +50,10 @@ public class UserController {
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/del/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/del/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
-        User user = (userService.findbyID(id));
-        if(user!=null)
+        Optional<User> user = (userService.findbyID(id));
+        if(user.isPresent())
         {
             userService.delete(id);
             return ResponseEntity.noContent().build();
@@ -63,27 +63,27 @@ public class UserController {
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getbyID(@PathVariable("id") Long id){
-        User user = (userService.findbyID(id));
-        if(user!=null) {
-            return ResponseEntity.ok(user);
+        Optional<User> user = (userService.findbyID(id));
+        if(user.isPresent()) {
+            return ResponseEntity.ok(user.get());
         }
         else return ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updatebyID(@PathVariable("id")Long id, @RequestBody UpdateUserRequest updateUser){
-        User user= (userService.findbyID(id));
-        if(user!=null){
+        Optional<User> user= (userService.findbyID(id));
+        if(user.isPresent()){
             if(updateUser.getEmail()!=null)
-                user.setEmail(updateUser.getEmail());
+                user.get().setEmail(updateUser.getEmail());
             if(updateUser.getFirstName()!=null)
-                user.setEmail(updateUser.getFirstName());
+                user.get().setEmail(updateUser.getFirstName());
             if(updateUser.getLastName()!=null)
-                user.setEmail(updateUser.getLastName());
+                user.get().setEmail(updateUser.getLastName());
             if(updateUser.getPermissions()!=null)
-                user.setPermissions(updateUser.getPermissions());
+                user.get().setPermissions(updateUser.getPermissions());
 
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.save(user.get()), HttpStatus.OK);
         }
         else return ResponseEntity.notFound().build();
     }
