@@ -26,11 +26,11 @@ public class UserDeatailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> myUser = this.userRepository.findUserByEmail(username);
+        Optional<User> usr = this.userRepository.findUserByEmail(username);
 
-        if(!myUser.isPresent()) throw new UsernameNotFoundException("User not found in the database");
+        if(!usr.isPresent()) throw new UsernameNotFoundException("User not found in the database");
 
-        User user = myUser.get();
+        User user = usr.get();
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getPermissions().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getDescription())));
