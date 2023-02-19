@@ -1,0 +1,72 @@
+<form [formGroup]="searchMachinesForm" (submit)="searchMachines()" method="post" >
+  <div class="mb-3">
+    <label for="firstNameInput" class="form-label">Machine name</label>
+    <input [formControlName]="'machineName'"  type="text" class="form-control" id="firstNameInput">
+  </div>
+  <div class="mb-3">
+    <label for="dateFromInput" class="form-label">Date from</label>
+    <input [formControlName]="'dateFrom'" type="date" class="form-control" id="dateFromInput">
+  </div>
+  <div class="mb-3">
+    <label for="dateToInput" class="form-label">Date to</label>
+    <input [formControlName]="'dateTo'" type="date" class="form-control" id="dateToInput">
+  </div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="STOPPED" id="3">
+    <label class="form-check-label" for="3">
+      STOPPED
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="RUNNING" id="4">
+    <label class="form-check-label" for="4">
+      RUNNING
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary me-2">Search</button>
+  <button (click)="clearForm()" class="btn btn-primary">Clear</button>
+</form>
+
+
+<table class="table-hover users-table table table-borderless">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Status</th>
+    <th scope="col">Active</th>
+    <th scope="col">Date created</th>
+    <th scope="col">Name</th>
+    <th scope="col">Created by</th>
+    <th scope="col">Run / Stop</th>
+    <th scope="col">Restart</th>
+    <th scope="col">Schedule</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let machine of machines index as i;">
+    <th scope="row">{{i+1}}</th>
+    <td>{{machine.status}}</td>
+    <td>{{machine.exists}}</td>
+    <td>{{machine.date}}</td>
+    <td>{{machine.name}}</td>
+    <td>{{machine.user.email}}</td>
+    <td *ngIf="machine.status == 'STOPPED'" class="text-center py-1">
+      <button (click)="startMachine(machine.id)" class="btn btn-outline-primary  btn-xs">Start</button>
+    </td>
+    <td *ngIf="machine.status == 'RUNNING'" class="text-center py-1">
+      <button (click)="stopMachine(machine.id)" class="btn btn-outline-danger  btn-xs">Stop</button>
+    </td>
+    <td *ngIf="machine.status == 'RUNNING'; else nobtn" class="text-center py-1">
+      <button (click)="restartMachine(machine.id)" class="btn btn-outline-info  btn-xs">Restart</button>
+    </td>
+    <ng-template #nobtn>
+      <td></td>
+    </ng-template>
+    <td class="text-center py-1">
+      <button [routerLink]="'/schedule/' + machine.id" class="btn btn-outline-dark  btn-xs">Schedule</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

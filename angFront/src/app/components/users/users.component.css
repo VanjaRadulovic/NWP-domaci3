@@ -1,0 +1,8 @@
+.users-table tr {
+  cursor: pointer;
+}
+
+table {
+  overflow-x: auto;
+  display: block;
+}

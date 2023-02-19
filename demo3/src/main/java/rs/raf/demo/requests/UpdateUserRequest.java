@@ -13,7 +13,7 @@ public class UpdateUserRequest {
 
     private Set<Permission> permissions;
 
-    public UpdateUserRequest(String email, String password, String firstName, String lastName, Set<Permission> permissions) {
+    public UpdateUserRequest(String email, String firstName, String lastName, Set<Permission> permissions) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

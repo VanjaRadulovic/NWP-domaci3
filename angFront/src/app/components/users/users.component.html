@@ -1,0 +1,24 @@
+<table class="table-hover users-table table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th *ngIf="checkPermission('can_delete_users')" scope="col">Delete</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Permissions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users  index as i;">
+    <th scope="row">{{i+1}}</th>
+    <td *ngIf="checkPermission('can_delete_users')" class="text-center py-1">
+      <button (click)="deleteUser(user.userId)" class="btn btn-outline-danger btn-xs">Delete</button>
+    </td>
+    <td>{{user.firstName}}</td>
+    <td>{{user.lastName}}</td>
+    <td [routerLink]="'/users/'+user.userId">{{user.email}}</td>
+    <td *ngFor="let permission of user.permissions"><a>{{permission.description}}</a></td>
+  </tr>
+  </tbody>
+</table>

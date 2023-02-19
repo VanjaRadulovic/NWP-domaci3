@@ -1,0 +1,11 @@
+<form [formGroup]="newMachineForm" (submit)="addMachine()" method="post" >
+
+  <div class="mb-3">
+    <label for="machineNameInput" class="form-label">Machine name</label>
+    <input [formControlName]="'machineName'"  type="text" class="form-control" id="machineNameInput" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+

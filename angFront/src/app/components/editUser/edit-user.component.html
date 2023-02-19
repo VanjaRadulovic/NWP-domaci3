@@ -1,0 +1,87 @@
+<form [formGroup]="editUserForm" (submit)="updateUser()">
+  <div class="mb-3">
+    <label for="firstNameInput" class="form-label">First name</label>
+    <input [formControlName]="'firstName'" [(ngModel)]="user.firstName" type="text" class="form-control" id="firstNameInput" aria-describedby="emailHelp" required>
+  </div>
+  <div class="mb-3">
+    <label for="lastNameInput" class="form-label">Last name</label>
+    <input [formControlName]="'lastName'" [(ngModel)]="user.lastName" type="text" class="form-control" id="lastNameInput" required>
+  </div>
+  <div class="mb-3">
+    <label for="emailInput" class="form-label">Email</label>
+    <input [formControlName]="'email'" [(ngModel)]="user.email" type="text" class="form-control" id="emailInput" required>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_create_users')" value="can_create_users" type="checkbox" id="1">
+    <label class="form-check-label" for="1">
+      can_create_users
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_read_users')" type="checkbox" value="can_read_users" id="2">
+    <label class="form-check-label" for="2">
+      can_read_users
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_update_users')" type="checkbox" value="can_update_users" id="3">
+    <label class="form-check-label" for="3">
+      can_update_users
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_delete_users')" type="checkbox" value="can_delete_users" id="4">
+    <label class="form-check-label" for="4">
+      can_delete_users
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_search_machines')" type="checkbox" value="can_search_machines" id="5">
+    <label class="form-check-label" for="4">
+      can_search_machines
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_start_machines')" type="checkbox" value="can_start_machines" id="6">
+    <label class="form-check-label" for="4">
+      can_start_machines
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_stop_machines')" type="checkbox" value="can_stop_machines" id="7">
+    <label class="form-check-label" for="4">
+      can_stop_machines
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_restart_machines')" type="checkbox" value="can_restart_machines" id="8">
+    <label class="form-check-label" for="4">
+      can_restart_machines
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_create_machines')" type="checkbox" value="can_create_machines" id="9">
+    <label class="form-check-label" for="4">
+      can_create_machines
+    </label>
+  </div>
+  <div class="form-check mb-3">
+    <input [formArrayName]="'formPermissions'" class="form-check-input"
+           [checked]="check('can_destroy_machines')" type="checkbox" value="can_destroy_machines" id="10">
+    <label class="form-check-label" for="4">
+      can_destroy_machines
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+

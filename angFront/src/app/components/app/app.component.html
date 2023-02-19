@@ -1,0 +1,22 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a [routerLink]="'/'" class="navbar-brand me-5">NWP domaci 3</a>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a [routerLink]="'/users'" class="nav-link active" aria-current="page">Users</a>
+          <a [routerLink]="'/newMachine'" class="nav-link active" aria-current="page">New Machine</a>
+          <a [routerLink]="'/search'" class="nav-link active" aria-current="page">Search Machines</a>
+          <a [routerLink]="'/errors'" class="nav-link active" aria-current="page">Errors</a>
+          <a *ngIf="!loggedIn()" [routerLink]="'/login'" class="nav-link active" aria-current="page">Login</a>
+          <a *ngIf="loggedIn()" [routerLink]="'/login'" (click)="logout()" class="logout nav-link active" aria-current="page">Logout</a>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="container pt-3">
+  <router-outlet></router-outlet>
+</div>
